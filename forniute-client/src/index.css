@@ -1,0 +1,21 @@
+* {
+  margin: 0px;
+  padding: 0px;
+  font-family: 'Roboto', sans-serif;
+  color: rgba(0,0,0,.87);
+}
+
+body{
+  font-size: 14px;
+}
+
+.wrapper {
+  max-width: 900px;
+  margin: auto;
+}
+.pull-right {
+  float: right;
+}
+.pull-left {
+  float: left;
+}

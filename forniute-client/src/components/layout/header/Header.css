@@ -1,0 +1,17 @@
+header {
+  height: 50px;
+}
+
+header .wrapper {
+  border-bottom: 1px solid rgba(0,0,0, .1);
+  padding: 10px;
+}
+
+header a {
+  text-decoration: none;
+  font-weight: bold;
+  margin-right: 10px;
+}
+header a.logo{
+  font-size: 1.7em;
+}
