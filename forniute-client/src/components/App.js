@@ -11,7 +11,7 @@ import ProfilePage from './pages/ProfilePage';
 const App = () => (
   <BrowserRouter>
     <Header/>
-    <div className="wrapper">
+    <div className="wrapper content-body">
       <Route exact path='/' component={ HomePage } />
       <Route exact path='/car' component={ CarPage } />
       <Route exact path='/profile' component={ ProfilePage } />

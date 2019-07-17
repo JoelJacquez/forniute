@@ -1,17 +1,37 @@
 header {
   height: 50px;
+  position: fixed;
+  width: 100%;
+  background: white;
+  top: 0;
+  z-index: 1;
 }
 
 header .wrapper {
-  border-bottom: 1px solid rgba(0,0,0, .1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   padding: 10px;
+  margin-bottom: 50px;
 }
 
 header a {
   text-decoration: none;
   font-weight: bold;
   margin-right: 10px;
+  transition: 0.2s all;
 }
-header a.logo{
+header a.menu-item {
+  padding: 10px 20px 0 0;
+  font-size: 1.4em;
+}
+header a.menu-item:hover {
+  color: #7a00ff;
+  font-weight: bold;
+}
+header a.menu-item:hover i {
+  color: #7a00ff;
+
+}
+
+header a.logo {
   font-size: 1.7em;
 }

@@ -1,0 +1,10 @@
+
+.home-products-grid {
+  display: grid;
+  grid-template-columns: repeat(4,1fr) ;
+  /* grid-template-columns: 1fr 1fr 1fr 1fr; */
+  grid-gap: 50px 30px;
+  background-color: #fff;
+  color: #444;
+  padding: 20px 10px;
+}

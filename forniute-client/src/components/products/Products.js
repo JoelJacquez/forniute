@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
-import Spinner from '../general/spinner/Spinner';
-import Fatal from '../general/fatal/Fatal';
 import * as productsActions from '../../actions/productsActions';
-
+import ProductList from './productList/ProductList';
+import './Products.css';
 class Products extends Component {
 
   
@@ -12,46 +11,20 @@ class Products extends Component {
   
   }
 
-  renderItems = () => {
-    if(this.props.is_loading){
-      return (<Spinner />);
-    }
-    if(this.props.error) {
-      return <Fatal message={this.props.error} />;
-    }
-    return this.createItems();
-    // return (
-    //   <div>
-    //     {this.createItems()}
-    //   </div>
-    // );
-  }
-
-  createItems = () =>(
-    this.props.products.map((product) => (
-      <div key={ product.id }>
-        <div>
-        </div>
-        <div>
-          <img src="http://lorempixel.com/200/200/cats/" alt={product.name} />
-          <h3>{ product.name }</h3>
-        </div>
-      </div>
-    ))
-  );
-
   render() {
     return (
-      <div>
-        <h1>Products</h1>
-        <hr/>
-        { this.renderItems() }
+      <div className='products-list'>
+        {/* <h1>Products</h1>
+        <hr/> */}
+          <ProductList />
+          
+        {/* { this.renderItems() } */}
       </div>
     )
   }
 }
 
-const MAP_STATE_TO_PROPS = (reducers) => {
+const mapStateToProps = (reducers) => {
   return reducers.productsReducer;
 };
-export default connect(MAP_STATE_TO_PROPS, productsActions)(Products);
+export default connect(mapStateToProps, productsActions)(Products);

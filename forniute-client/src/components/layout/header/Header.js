@@ -8,8 +8,10 @@ class Header extends Component {
       <header>
         <div className="wrapper">
           <Link className="logo" to="/">Forniute</Link>
-          <Link className="pull-right" to="/car">Carrito</Link>
-          <Link className="pull-right" to="/profile">User</Link>
+          <Link className="menu-item pull-right" to="/car">
+            <i className="fas fa-shopping-cart"></i>
+          </Link>
+          <Link className="menu-item pull-right" to="/profile">User</Link>
         </div>
       </header>
     );
