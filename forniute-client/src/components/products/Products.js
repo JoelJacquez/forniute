@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
-
+import Spinner from '../general/Spinner';
 import * as productsActions from '../../actions/productsActions';
 
 class Products extends Component {
@@ -11,7 +11,19 @@ class Products extends Component {
   
   }
 
-  crearItems = () =>(
+  renderItems = () => {
+    if(this.props.is_loading){
+      return (<Spinner />);
+    }
+    return this.createItems();
+    // return (
+    //   <div>
+    //     {this.createItems()}
+    //   </div>
+    // );
+  }
+
+  createItems = () =>(
     this.props.products.map((product) => (
       <div key={ product.id }>
         <div>
@@ -29,7 +41,7 @@ class Products extends Component {
       <div>
         <h1>Products</h1>
         <hr/>
-        { this.crearItems() }
+        { this.renderItems() }
       </div>
     )
   }
