@@ -1,0 +1,22 @@
+{
+  "name": "forniute-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/jacquez/forniute.git"
+  },
+  "author": "Joel Jacquez @cryptt3r",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/jacquez/forniute/issues"
+  },
+  "homepage": "https://gitlab.com/jacquez/forniute#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
