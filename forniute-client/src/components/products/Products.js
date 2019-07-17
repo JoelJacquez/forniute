@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
-import Spinner from '../general/Spinner';
+import Spinner from '../general/spinner/Spinner';
+import Fatal from '../general/fatal/Fatal';
 import * as productsActions from '../../actions/productsActions';
 
 class Products extends Component {
@@ -14,6 +15,9 @@ class Products extends Component {
   renderItems = () => {
     if(this.props.is_loading){
       return (<Spinner />);
+    }
+    if(this.props.error) {
+      return <Fatal message={this.props.error} />;
     }
     return this.createItems();
     // return (

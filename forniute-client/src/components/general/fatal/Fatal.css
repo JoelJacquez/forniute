@@ -1,0 +1,61 @@
+
+
+#fatal-error-container {
+  width: fit-content;
+  margin: auto;
+}
+
+.fatal-error-container {
+  max-width: 520px;
+  width: 100%;
+  line-height: 1.4;
+  text-align: center;
+}
+
+.fatal-error-container .fatal-error {
+  height: 200px;
+  margin: 0px auto 20px;
+  z-index: -1;
+}
+
+.fatal-error-container .fatal-error h1 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 158px;
+  font-weight: lighter;
+  margin: 0px;
+  color: #211b19;
+  text-transform: uppercase;
+
+
+}
+
+.fatal-error-container .fatal-error h2 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  text-transform: uppercase;
+  color: #d80018;
+  /* background: #0d0b88; */
+  padding: 10px 5px;
+  margin: -50px auto;
+  width: fit-content;
+}
+
+.fatal-error-container a {
+  font-family: 'Montserrat', sans-serif;
+  display: inline-block;
+  font-weight: 700;
+  text-decoration: none;
+  color: #fff;
+  text-transform: uppercase;
+  padding: 13px 23px;
+  background: #7a00ff;
+  font-size: 18px;
+  -webkit-transition: 0.2s all;
+  transition: 0.2s all;
+}
+
+.fatal-error-container a:hover {
+  color: #7a00ff;
+  background: #000000;
+}

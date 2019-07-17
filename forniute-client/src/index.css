@@ -10,7 +10,7 @@ body{
 }
 
 .wrapper {
-  max-width: 900px;
+  max-width: 1200px;
   margin: auto;
 }
 .pull-right {
@@ -18,4 +18,11 @@ body{
 }
 .pull-left {
   float: left;
+}
+.center {
+  text-align: center;
+}
+
+.error-message {
+  color: #ce1126;
 }

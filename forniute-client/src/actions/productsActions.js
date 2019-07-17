@@ -18,7 +18,8 @@ export const getHome = () => async dispatch => {
     console.log('Error: ',err.message);
     dispatch({
       type: HAVE_ERROR,
-      payload: err.message
+      payload: 'Algo ha salido mal, intente mas tarde.'
+      // payload: err.message
     });
   }
 };
