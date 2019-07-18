@@ -46,15 +46,15 @@ router.post('/', async (req, res, next) => {
   }
 });
 
-router.put('/productId', async (req, res, next) => {
+router.put('/:productId', async (req, res, next) => {
   const { productId } = req.params;
   const { body: product } = req;
 
   try {
-    const product =  await productsService.updateProduct({ productId, product });
+    const updatedProduct =  await productsService.updateProduct({ productId, product });
     
     res.status(200).json({
-      data: product,
+      data: updatedProduct,
       message: 'products updated'
     });
   } catch (err) {
@@ -62,7 +62,7 @@ router.put('/productId', async (req, res, next) => {
   }
 });
 
-router.delete('/productId', async (req, res, next) => {
+router.delete('/:productId', async (req, res, next) => {
   const { productId } = req.params;
   try {
     const product = await productsService.deleteProduct({ productId });
