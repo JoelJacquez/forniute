@@ -3,6 +3,12 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const productsV1Router = require('./routes/v1/products');
 
+const {
+  logErrors,
+  clientErrorHandler,
+  errorHandler
+} = require('./utils/middlewares/errorsHandlers');
+
 // app
 const app = express();
 const server = require('http').Server(app);
@@ -20,10 +26,17 @@ app.get('/', (req, res) => {
 app.use('/v1/products', productsV1Router);
 
 
-server.listen(port, () => {
-  const environment = (process.env.NODE_ENV || 'develop');
+// error handlers
+app.use(logErrors);
+app.use(clientErrorHandler);
+app.use(errorHandler);
 
-  console.log('Servidor ' + environment + ' corriendo en http://localhost:' + port);
+server.listen(port, () => {
+  const environment = process.env.NODE_ENV || 'develop';
+
+  console.log(
+    'Servidor ' + environment + ' corriendo en http://localhost:' + port
+  );
 });
 
 module.exports = app; // for testing
