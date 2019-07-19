@@ -2,7 +2,7 @@ import { GET_PRODUCTS_HOME } from '../types/productsTypes';
 import { IS_LOADING, HAVE_ERROR } from '../types/generalTypes';
 const INITIAL_STATE = {
   products: [],
-  is_loading: false,
+  isLoading: false,
   error: ''
 };
 
@@ -12,13 +12,13 @@ export default (state = INITIAL_STATE, action) => {
       return { 
         ...state, 
         products: action.payload,
-        is_loading: false
+        isLoading: false
       }
     
     case IS_LOADING:
-      return { ...state, is_loading: true}
+      return { ...state, isLoading: true}
     case HAVE_ERROR:
-      return { ...state, error: action.payload, is_loading: false}
+      return { ...state, error: action.payload, isLoading: false}
 
     default:
       return state;

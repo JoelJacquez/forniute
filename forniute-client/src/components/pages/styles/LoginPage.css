@@ -35,7 +35,6 @@
   background: #7a00ff;
 }
 .login-container .form .error-message  {
-  display: none;
   font-size: 1em;
   margin: 5px auto;
   padding: 10px 0;

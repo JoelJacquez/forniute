@@ -10,7 +10,7 @@ import { IS_LOADING, HAVE_ERROR } from '../types/generalTypes';
 const INITIAL_STATE = {
   _id: '',
   cartItems: [],
-  is_loading: false,
+  isLoading: false,
   total: 0,
   error: ''
 };
@@ -22,7 +22,7 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         cartItems: action.cartItems,
         total: action.total,
-        is_loading: false
+        isLoading: false
       };
       
     case CART_REMOVE_ITEM:
@@ -30,7 +30,7 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         cartItems: action.cartItems,
         total: action.total,
-        is_loading: false
+        isLoading: false
       };
       
     case CART_GET_CART:
@@ -39,7 +39,7 @@ export default (state = INITIAL_STATE, action) => {
         _id: action._id,
         cartItems: action.cartItems,
         total: action.total,
-        is_loading: false
+        isLoading: false
       };
 
     case CART_ADD_QUANTITY:
@@ -47,7 +47,7 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         cartItems: action.cartItems,
         total: action.total,
-        is_loading: false
+        isLoading: false
       };
 
     case CART_SUB_QUANTITY:
@@ -55,14 +55,14 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         cartItems: action.cartItems,
         total: action.total,
-        is_loading: false
+        isLoading: false
       };
 
     case IS_LOADING:
-      return { ...state, is_loading: true };
+      return { ...state, isLoading: true };
 
     case HAVE_ERROR:
-      return { ...state, error: action.payload, is_loading: false };
+      return { ...state, error: action.payload, isLoading: false };
 
     default:
       return state;

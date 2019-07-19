@@ -9,7 +9,7 @@ import './styles/CartPage.css';
 class CarPage extends Component {
   renderItems() {
     const { cartItems } = this.props;
-    if (this.props.is_loading) {
+    if (this.props.isLoading) {
       return <Spinner />;
     }
     if (this.props.error) {

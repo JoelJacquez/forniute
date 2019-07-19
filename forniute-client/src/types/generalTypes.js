@@ -1,2 +1,2 @@
-export const IS_LOADING = 'is_loading';
+export const IS_LOADING = 'isLoading';
 export const HAVE_ERROR = 'error';

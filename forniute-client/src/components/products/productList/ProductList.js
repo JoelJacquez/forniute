@@ -16,7 +16,7 @@ const ProductList = (props) => {
   ))
   const renderItems = () => {
     
-    if(props.is_loading){
+    if(props.isLoading){
       return (<Spinner />);
     }
     if(props.error) {

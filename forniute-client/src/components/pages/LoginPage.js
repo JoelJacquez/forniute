@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import * as authActions from '../../actions/authActions';
+import Spinner from '../general/Spinner';
 import './styles/LoginPage.css';
-export default class LoginPage extends Component {
+class LoginPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -8,6 +12,7 @@ export default class LoginPage extends Component {
       password: '',
       submitted: false
     };
+    this.props.logout();
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -21,11 +26,24 @@ export default class LoginPage extends Component {
   handleSubmit(e) {
     e.preventDefault();
     const { email, password } = this.state;
-    console.log('====================================');
     console.log('on sumbit');
-    console.log('email ', email);
-    console.log('password ', password);
-    console.log('====================================');
+    this.props.login(email, password);
+  }
+
+  renderRedirect = () => {
+    if (this.state.redirect) {
+      return <Redirect to='/target' />
+    }
+  }
+
+  renderStatusLogin() {
+    if (this.props.isLoading) {
+      return <Spinner />;
+    } else {
+      if(this.props.error){
+        return (<span className="error-message center">{this.props.error}</span>)
+      } 
+    }
   }
   render() {
     const { email, password } = this.state;
@@ -53,7 +71,7 @@ export default class LoginPage extends Component {
             placeholder="Contraseña"
           />
 
-          <span className="error-message">Error message</span>
+          {this.renderStatusLogin()}
 
           <button>Iniciar sesión</button>
         </form>
@@ -61,3 +79,10 @@ export default class LoginPage extends Component {
     );
   }
 }
+const mapStateToProps = reducers => {
+  return reducers.authReducer;
+};
+export default connect(
+  mapStateToProps,
+  authActions
+)(LoginPage);
