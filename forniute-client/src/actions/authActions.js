@@ -11,7 +11,6 @@ import {
 } from '../types/authTypes';
 
 export const login = (email, password) => async dispatch => {
-
   dispatch({
     type: IS_LOADING
   });
@@ -32,7 +31,13 @@ export const login = (email, password) => async dispatch => {
     const token = response.data.access_token;
     localStorage.setItem(config.tokenName, token);
     const user = getUserFrom(token);
-    history.push('/');
+
+    console.log('History length ', history.length);
+    if(history.length>2) {
+      history.goBack();
+    }else{
+      history.push('/');
+    }
 
     dispatch({
       type: LOGIN,

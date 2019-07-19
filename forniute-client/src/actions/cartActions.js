@@ -6,6 +6,7 @@ import {
   CART_REMOVE_ITEM
 } from '../types/cartTypes';
 import { IS_LOADING, HAVE_ERROR } from '../types/generalTypes';
+import { history } from '../components/general/History';
 
 const allcartItems = [
   {
@@ -75,6 +76,14 @@ export const getCart = () => dispatch => {
 export const addItem = _id => (dispatch, getState) => {
   const state = getState();
   let { products } = state.productsReducer;
+  let { user } = state.authReducer;
+  if (!user) {
+    history.push('/login');
+    return;
+  }
+  console.log('====================================');
+  console.log('PORNO XXXd');
+  console.log('====================================');
   let { cartItems, total } = state.cartReducer;
   let cartItem = products.find(item => item._id === _id);
   let existed_item = cartItems.find(item => item._id === _id);
