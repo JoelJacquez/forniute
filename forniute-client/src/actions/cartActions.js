@@ -21,12 +21,8 @@ export const getCart = () => async (dispatch, getState) => {
       return;
     }
 
-    // const response = await axios.get('http://localhost:9000/v1/cart/');
     const response = await axios.get(`${config.urlAPI}/cart/`);
 
-    console.log('====================================');
-    console.log('reposnse ', response);
-    console.log('====================================');
     // let cartItems = response.data.data.cartItems;
     const { id, cartItems } = response.data.data;
     let total = 0;
@@ -52,56 +48,20 @@ export const getCart = () => async (dispatch, getState) => {
 };
 
 export const addItem = id => async (dispatch, getState) => {
-  const state = getState();
   const token = getToken();
-  let { products } = state.productsReducer;
-  // let { user } = state.authReducer;
+
   if (!token) {
     history.push('/login');
     return;
   }
 
-  const response = await axios.post(`${config.urlAPI}/cart/add-item`, {
+  await axios.post(`${config.urlAPI}/cart/add-item`, {
     productId: id
   });
-  console.log('====================================');
-  console.log('Este es el ptuto response de mierda ', response);
-  console.log('====================================');
-
-
 
   dispatch({
-    type: CART_ADD_ITEM,
-    // cartItems: [...cartItems, cartItem],
-    // total: newTotal
+    type: CART_ADD_ITEM
   });
-  // console.log('====================================');
-  // console.log('PORNO XXXd ', id);
-  // console.log('====================================');
-  // let { cartItems, total } = state.cartReducer;
-  // let cartItem = products.find(item => item.id === id);
-  // let existed_item = cartItems.find(item => item.productId === id);
-
-  // console.log('====================================');
-  // console.log('puto itemS de mierda ', cartItems);
-  // console.log('puto item de mierda ', existed_item);
-  // console.log('====================================');
-  // if (existed_item) {
-  //   console.log('====================================');
-  //   console.log('Existe el puto item ');
-  //   console.log('====================================');
-  //   existed_item.quantity += 1;
-  //   dispatch({
-  //     type: CART_ADD_ITEM,
-  //     cartItems: cartItems,
-  //     total: total + existed_item.price
-  //   });
-  // } else {
-  //   console.log('====================================');
-  //   console.log('Ne existe el puto item de mierda ', cartItem);
-  //   console.log('====================================');
-    
-  // }
 };
 
 export const addQuantity = id => (dispatch, getState) => {
@@ -162,9 +122,6 @@ export const removeItem = id => (dispatch, getState) => {
 
 const getToken = () => {
   const token = localStorage.getItem(config.tokenName);
-  console.log('====================================');
-  console.log('tu puta madre pinche token ', token);
-  console.log('====================================');
   axios.defaults.headers.common = { Authorization: `bearer ${token}` };
   return token;
 };
