@@ -4,16 +4,16 @@ import * as cartActions from '../../actions/cartActions';
 import Spinner from '../general/Spinner';
 import Fatal from '../general/Fatal';
 import CartItem from '../cart/CartItem';
-import { history } from '../general/History';
+// import { history } from '../general/History';
 import './styles/CartPage.css';
 
 class CarPage extends Component {
   constructor(props) {
     super(props);
     console.log('user ', this.props.authReducer.user);
-    if(!this.props.authReducer.user){
-      history.push('/login');
-    }
+    // if(!this.props.authReducer.user){
+    //   history.push('/login');
+    // }
   }
   componentWillMount() {
     console.log('componentWilMout');

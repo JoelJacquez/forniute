@@ -12,7 +12,7 @@ class LoginPage extends Component {
       password: '',
       submitted: false
     };
-    this.props.logout();
+    // this.props.logout();
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);

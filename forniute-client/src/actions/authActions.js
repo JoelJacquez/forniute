@@ -33,11 +33,11 @@ export const login = (email, password) => async dispatch => {
     const user = getUserFrom(token);
 
     console.log('History length ', history.length);
-    if(history.length>2) {
-      history.goBack();
-    }else{
-      history.push('/');
-    }
+    // if(history.length>2) {
+    //   history.goBack();
+    // }else{
+    // }
+    history.push('/');
 
     dispatch({
       type: LOGIN,

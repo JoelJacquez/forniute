@@ -1,4 +1,5 @@
-// import axios from 'axios';
+import axios from 'axios';
+import config from '../config';
 import {
   CART_GET_CART,
   CART_ADD_ITEM,
@@ -8,49 +9,28 @@ import {
 import { IS_LOADING, HAVE_ERROR } from '../types/generalTypes';
 import { history } from '../components/general/History';
 
-const allcartItems = [
-  {
-    _id: '5d30453d712602623c55dea2',
-    name: 'Verpro Smart Watch1',
-    urlPhoto:
-      'https://images-na.ssl-images-amazon.com/images/I/71s9AZwrcmL._SL1500_.jpg',
-    price: 1168,
-    quantity: 1
-  },
-  {
-    _id: '5d30453d712602623c55dea3',
-    name: 'Alfawise Y7',
-    urlPhoto:
-      'https://gloimg.gbtcdn.com/soa/gb/pdm-product-pic/Electronic/2018/12/06/source-img/20181206153014_63896.jpg',
-    price: 519.56,
-    quantity: 1
-  },
-  {
-    _id: '5d30453d712602623c55dea4',
-    name: 'ColMi Bluetooth Smartwatch',
-    urlPhoto:
-      'https://ae01.alicdn.com/kf/HTB1ib1BSpXXXXcuXVXXq6xXFXXXL/Pulsera-de-ritmo-card-aco-ColMi-Bluetooth-Smartwatch-con-Monitor-de-presi-n-arterial-rastreador-de.jpg',
-    price: 951.65,
-    quantity: 1
-  },
-  {
-    _id: '5d30453d712602623c55dea5',
-    name: 'Gocomma B2',
-    urlPhoto:
-      'https://gloimg.gbtcdn.com/soa/gb/pdm-product-pic/Electronic/2019/03/20/source-img/20190320141940_72963.jpg',
-    price: 338.33,
-    quantity: 1
-  }
-];
-
-export const getCart = () => dispatch => {
+export const getCart = () => async (dispatch, getState) => {
   dispatch({
     type: IS_LOADING
   });
-
+  const token = getToken();
+  console.log('token XXXX', token);
+  
   try {
+    if (!token) {
+      history.push('/login');
+      return;
+    }
+
+
     // const response = await axios.get('http://localhost:9000/v1/cart/');
-    let cartItems = [allcartItems[0]];
+    const response = await axios.get(`${config.urlAPI}/cart/`);
+
+    console.log('====================================');
+    console.log('reposnse ', response);
+    console.log('====================================');
+    let cartItems = response.data.cartItems;
+    const { id } = response.data;
     let total = 0;
     cartItems.forEach(item => {
       total += item.price * item.quantity;
@@ -58,7 +38,7 @@ export const getCart = () => dispatch => {
     setTimeout(() => {
       dispatch({
         type: CART_GET_CART,
-        _id: 'sj982i3982ube83294r2309fu0ed',
+        id: id,
         cartItems: cartItems,
         total: total
       });
@@ -158,4 +138,13 @@ export const removeItem = _id => (dispatch, getState) => {
     cartItems: newItems,
     total: newTotal <= 0 ? 0 : newTotal
   });
+};
+
+const getToken = () => {
+  const token = localStorage.getItem(config.tokenName);
+  console.log('====================================');
+  console.log('tu puta madre pinche token ', token);
+  console.log('====================================');
+  axios.defaults.headers.common = { Authorization: `bearer ${token}` };
+  return token;
 };

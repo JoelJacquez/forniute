@@ -2,18 +2,19 @@ const passport = require('passport');
 const { BasicStrategy } = require('passport-http');
 const boom = require('boom');
 const bcrypt = require('bcrypt');
-const MongoLib = require('../../../lib/mongo');
+const MysqlLib = require('../../../lib/mysql');
 
 passport.use(
   new BasicStrategy(async function(username, password, cb) {
-    const mongoDB = new MongoLib();
+    const mysqlDB = new MysqlLib();
+    // mysqlDB.open();
     console.log('====================================');
     console.log('username ', username);
     console.log('password ', password);
     console.log('====================================');
 
     try {
-      const [user] = await mongoDB.getAll('users', { email: username });
+      const [user] = await mysqlDB.query('select * from users where email = ?', [username]);
       console.log('user ', user)
       if (!user) {
         console.log('error ', user)

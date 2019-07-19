@@ -12,7 +12,7 @@ const ProductList = (props) => {
     props.addItem(product._id);
   }
   const createItems = () => products.map((item) => (
-    <ProductItem key={item._id} product={item} handleClick={handleClick} />
+    <ProductItem key={item.id} product={item} handleClick={handleClick} />
   ))
   const renderItems = () => {
     

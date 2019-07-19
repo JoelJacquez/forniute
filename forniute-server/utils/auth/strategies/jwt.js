@@ -1,8 +1,8 @@
-const passport = require("passport");
-const { Strategy, ExtractJwt } = require("passport-jwt");
-const boom = require("boom");
-const { config } = require("../../../config");
-const MongoLib = require("../../../lib/mongo");
+const passport = require('passport');
+const { Strategy, ExtractJwt } = require('passport-jwt');
+const boom = require('boom');
+const { config } = require('../../../config');
+const MysqlLib = require('../../../lib/mysql');
 
 passport.use(
   new Strategy(
@@ -11,12 +11,13 @@ passport.use(
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken()
     },
     async function(tokenPayload, cb) {
-      const mongoDB = new MongoLib();
+      const mysqlDB = new MysqlLib();
 
       try {
-        const [user] = await mongoDB.getAll("users", {
-          username: tokenPayload.sub
-        });
+        const [user] = await mysqlDB.query(
+          'select * from users where email = ?',
+          [tokenPayload.email]
+        );
 
         if (!user) {
           return cb(boom.unauthorized(), false);
