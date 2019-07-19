@@ -1,4 +1,5 @@
 import axios from 'axios';
+import config from  '../config';
 import { GET_PRODUCTS_HOME } from '../types/productsTypes';
 import { IS_LOADING, HAVE_ERROR } from '../types/generalTypes';
 
@@ -8,8 +9,8 @@ export const getHome = () => async dispatch => {
   });
 
   try {
-    const response = await axios.get('http://localhost:9000/v1/products/');
-
+    const response = await axios.get(`${config.urlAPI}/products/`);
+    
     dispatch({
       type: GET_PRODUCTS_HOME,
       payload: response.data.data

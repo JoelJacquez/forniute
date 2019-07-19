@@ -11,7 +11,8 @@ class Header extends Component {
           <Link className="menu-item pull-right" to="/car">
             <i className="fas fa-shopping-cart"></i>
           </Link>
-          <Link className="menu-item pull-right" to="/profile">Profile</Link>
+          <Link className="menu-item pull-right" to="/login">Login</Link>
+          {/* <Link className="menu-item pull-right" to="/profile">Profile</Link> */}
         </div>
       </header>
     );
