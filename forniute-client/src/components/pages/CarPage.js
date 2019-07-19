@@ -35,7 +35,7 @@ class CarPage extends Component {
       );
     } else {
       cartItemsRender = cartItems.map(item => (
-        <CartItem key={item._id} item={item} {...this.props} />
+        <CartItem key={item.id} item={item} {...this.props} />
       ));
     }
     return cartItemsRender;

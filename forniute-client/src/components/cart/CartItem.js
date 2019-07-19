@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import './styles/CartItem.css';
 class CartItem extends Component {
   
-  handleClickAddQuantity(_id) {
-    this.props.addQuantity(_id);
+  handleClickAddQuantity(id) {
+    this.props.addQuantity(id);
   }
-  handleClickSubQuantity(_id) {
-    this.props.subQuantity(_id);
+  handleClickSubQuantity(id) {
+    this.props.subQuantity(id);
   }
-  handleClickRemoveItem(_id) {
-    this.props.removeItem(_id);
+  handleClickRemoveItem(id) {
+    this.props.removeItem(id);
   }
 
   render() {
@@ -31,7 +31,7 @@ class CartItem extends Component {
             <button
               className="circular-button"
               onClick={() => {
-                this.handleClickSubQuantity(item._id);
+                this.handleClickSubQuantity(item.id);
               }}
             >
               -
@@ -40,7 +40,7 @@ class CartItem extends Component {
             <button
               className="circular-button"
               onClick={() => {
-                this.handleClickAddQuantity(item._id);
+                this.handleClickAddQuantity(item.id);
               }}
             >
               +
@@ -48,7 +48,7 @@ class CartItem extends Component {
           </p>
           <button
             onClick={() => {
-              this.handleClickRemoveItem(item._id);
+              this.handleClickRemoveItem(item.id);
             }}
           >
             remover

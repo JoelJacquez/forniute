@@ -17,7 +17,6 @@ router.get(
       const userId = req.user.id;
       const cart = await cartService.getCart({ userId });
 
-
       res.status(200).json({
         data: cart,
         message: 'cart retrieved'
@@ -28,20 +27,24 @@ router.get(
   }
 );
 
-router.get('/:productId', async (req, res, next) => {
-  const { productId } = req.params;
-  try {
-    const product = await productsService.getProduct({ productId });
-
-    res.status(200).json({
-      data: product,
-      message: 'products retrieved'
-    });
-  } catch (err) {
-    next(err);
+router.post(
+  '/add-item',
+  passport.authenticate('jwt', { session: false }),
+  async (req, res, next) => {
+    const { productId } = req.body;
+    console.log('item to add ', productId);
+    const userId = req.user.id;
+    const result = await cartService.addItem({ userId, productId });
+    try {
+      res.status(201).json({
+        data: { cartItemId: result },
+        message: 'product created'
+      });
+    } catch (err) {
+      next(err);
+    }
   }
-});
-
+);
 router.post(
   '/',
   passport.authenticate('jwt', { session: false }),

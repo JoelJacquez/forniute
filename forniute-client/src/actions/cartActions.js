@@ -14,14 +14,12 @@ export const getCart = () => async (dispatch, getState) => {
     type: IS_LOADING
   });
   const token = getToken();
-  console.log('token XXXX', token);
-  
+
   try {
     if (!token) {
       history.push('/login');
       return;
     }
-
 
     // const response = await axios.get('http://localhost:9000/v1/cart/');
     const response = await axios.get(`${config.urlAPI}/cart/`);
@@ -29,8 +27,8 @@ export const getCart = () => async (dispatch, getState) => {
     console.log('====================================');
     console.log('reposnse ', response);
     console.log('====================================');
-    let cartItems = response.data.cartItems;
-    const { id } = response.data;
+    // let cartItems = response.data.data.cartItems;
+    const { id, cartItems } = response.data.data;
     let total = 0;
     cartItems.forEach(item => {
       total += item.price * item.quantity;
@@ -53,45 +51,67 @@ export const getCart = () => async (dispatch, getState) => {
   }
 };
 
-export const addItem = _id => (dispatch, getState) => {
+export const addItem = id => async (dispatch, getState) => {
   const state = getState();
+  const token = getToken();
   let { products } = state.productsReducer;
-  let { user } = state.authReducer;
-  if (!user) {
+  // let { user } = state.authReducer;
+  if (!token) {
     history.push('/login');
     return;
   }
-  console.log('====================================');
-  console.log('PORNO XXXd');
-  console.log('====================================');
-  let { cartItems, total } = state.cartReducer;
-  let cartItem = products.find(item => item._id === _id);
-  let existed_item = cartItems.find(item => item._id === _id);
 
-  if (existed_item) {
-    existed_item.quantity += 1;
-    dispatch({
-      type: CART_ADD_ITEM,
-      cartItems: cartItems,
-      total: total + existed_item.price
-    });
-  } else {
-    cartItem.quantity = 1;
-    //calculating the total
-    let newTotal = total + cartItem.price;
+  const response = await axios.post(`${config.urlAPI}/cart/add-item`, {
+    productId: id
+  });
+  console.log('====================================');
+  console.log('Este es el ptuto response de mierda ', response);
+  console.log('====================================');
 
-    dispatch({
-      type: CART_ADD_ITEM,
-      cartItems: [...cartItems, cartItem],
-      total: newTotal
-    });
-  }
+
+
+  dispatch({
+    type: CART_ADD_ITEM,
+    // cartItems: [...cartItems, cartItem],
+    // total: newTotal
+  });
+  // console.log('====================================');
+  // console.log('PORNO XXXd ', id);
+  // console.log('====================================');
+  // let { cartItems, total } = state.cartReducer;
+  // let cartItem = products.find(item => item.id === id);
+  // let existed_item = cartItems.find(item => item.productId === id);
+
+  // console.log('====================================');
+  // console.log('puto itemS de mierda ', cartItems);
+  // console.log('puto item de mierda ', existed_item);
+  // console.log('====================================');
+  // if (existed_item) {
+  //   console.log('====================================');
+  //   console.log('Existe el puto item ');
+  //   console.log('====================================');
+  //   existed_item.quantity += 1;
+  //   dispatch({
+  //     type: CART_ADD_ITEM,
+  //     cartItems: cartItems,
+  //     total: total + existed_item.price
+  //   });
+  // } else {
+  //   console.log('====================================');
+  //   console.log('Ne existe el puto item de mierda ', cartItem);
+  //   console.log('====================================');
+    
+  // }
 };
 
-export const addQuantity = _id => (dispatch, getState) => {
+export const addQuantity = id => (dispatch, getState) => {
   let { cartItems, total } = getState().cartReducer;
+  console.log('====================================');
+  console.log('Cart items ', cartItems);
+  console.log('id ', id);
+  console.log('====================================');
 
-  let cartItem = cartItems.find(item => item._id === _id);
+  let cartItem = cartItems.find(item => item.id === id);
   cartItem.quantity += 1;
   let newTotal = total + cartItem.price;
   dispatch({
@@ -101,13 +121,13 @@ export const addQuantity = _id => (dispatch, getState) => {
   });
 };
 
-export const subQuantity = _id => (dispatch, getState) => {
+export const subQuantity = id => (dispatch, getState) => {
   let { cartItems, total } = getState().cartReducer;
 
-  let cartItem = cartItems.find(item => item._id === _id);
+  let cartItem = cartItems.find(item => item.id === id);
 
   if (cartItem.quantity === 1) {
-    let newItems = cartItems.filter(item => item._id !== _id);
+    let newItems = cartItems.filter(item => item.id !== id);
     let newTotal = total - cartItem.price;
     dispatch({
       type: CART_ADD_QUANTITY,
@@ -125,10 +145,10 @@ export const subQuantity = _id => (dispatch, getState) => {
   }
 };
 
-export const removeItem = _id => (dispatch, getState) => {
+export const removeItem = id => (dispatch, getState) => {
   let { total, cartItems } = getState().cartReducer;
-  let itemToRemove = cartItems.find(item => item._id === _id);
-  let newItems = cartItems.filter(item => item._id !== _id);
+  let itemToRemove = cartItems.find(item => item.id === id);
+  let newItems = cartItems.filter(item => item.id !== id);
 
   //calculating the total
   let newTotal = total - itemToRemove.price * itemToRemove.quantity;

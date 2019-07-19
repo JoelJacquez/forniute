@@ -20,8 +20,8 @@ export default (state = INITIAL_STATE, action) => {
     case CART_ADD_ITEM:
       return {
         ...state,
-        cartItems: action.cartItems,
-        total: action.total,
+        // cartItems: action.cartItems,
+        // total: action.total,
         isLoading: false
       };
       

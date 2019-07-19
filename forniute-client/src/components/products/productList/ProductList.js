@@ -9,7 +9,7 @@ const ProductList = (props) => {
   const { products } = props.productsReducer;
   const handleClick = (product) => {
     console.log('Click on product ', product);
-    props.addItem(product._id);
+    props.addItem(product.id);
   }
   const createItems = () => products.map((item) => (
     <ProductItem key={item.id} product={item} handleClick={handleClick} />
