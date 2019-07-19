@@ -64,14 +64,15 @@ export const addItem = id => async (dispatch, getState) => {
   });
 };
 
-export const addQuantity = id => (dispatch, getState) => {
+export const addQuantity = id => async (dispatch, getState) => {
   let { cartItems, total } = getState().cartReducer;
-  console.log('====================================');
-  console.log('Cart items ', cartItems);
-  console.log('id ', id);
-  console.log('====================================');
-
+  
   let cartItem = cartItems.find(item => item.id === id);
+
+  await axios.post(`${config.urlAPI}/cart/add-item`, {
+    productId: cartItem.productId
+  });
+
   cartItem.quantity += 1;
   let newTotal = total + cartItem.price;
   dispatch({
