@@ -24,7 +24,10 @@ class Products extends Component {
   }
 }
 
-const mapStateToProps = (reducers) => {
-  return reducers.productsReducer;
+const mapStateToProps = ({productsReducer, cartReducer}) => {
+  return {
+    productsReducer,
+    cartReducer
+  };
 };
 export default connect(mapStateToProps, productsActions)(Products);

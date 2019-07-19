@@ -1,17 +1,21 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import * as cartActions from '../../../actions/cartActions';
 import ProductItem from '../productItem/ProductItem';
-import Spinner from '../../general/spinner/Spinner';
-import Fatal from '../../general/fatal/Fatal';
+import Spinner from '../../general/Spinner';
+import Fatal from '../../general/Fatal';
 
 const ProductList = (props) => {
-  const { products } = props;
-
+  const { products } = props.productsReducer;
+  const handleClick = (product) => {
+    console.log('Click on product ', product);
+    props.addItem(product._id);
+  }
   const createItems = () => products.map((item) => (
-    <ProductItem key={item.id} product={item}/>
-    // <div className="box" >{ item.name }</div>
+    <ProductItem key={item._id} product={item} handleClick={handleClick} />
   ))
   const renderItems = () => {
+    
     if(props.is_loading){
       return (<Spinner />);
     }
@@ -29,7 +33,10 @@ const ProductList = (props) => {
     renderItems()
   )
 }
-const mapStateToProps = (reducers) => {
-  return reducers.productsReducer;
+const mapStateToProps = ({productsReducer, cartReducer}) => {
+  return {
+    productsReducer, 
+    cartReducer
+  };
 };
-export default connect(mapStateToProps)(ProductList);
+export default connect(mapStateToProps, cartActions)(ProductList);

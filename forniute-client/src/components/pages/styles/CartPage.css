@@ -1,0 +1,31 @@
+.cart-page-container {
+  padding-top: 30px;
+}
+
+.cart-items-container {
+  max-width: 80%;
+  margin: 20px auto;
+}
+
+
+.cart-item-empty {
+  padding: 20px;
+  border: 1px solid darkgray;
+}
+
+.cart-resume-container {
+  max-width: 60%;
+  margin: 20px auto;
+}
+.cart-sumary-container {
+  border: 1px solid darkgray;
+  padding: 20px;
+}
+.cart-sumary-container span {
+  font-size: 1.2em;
+}
+.cart-sumary-container .cart-total-label {
+  font-family: 'Roboto';
+  font-weight: bold;
+  font-size: 1.3em;
+}

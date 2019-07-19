@@ -1,7 +1,9 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 const path = require('path');
 const productsV1Router = require('./routes/v1/products');
+const authV1Router = require('./routes/v1/auth');
 
 const {
   logErrors,
@@ -15,6 +17,7 @@ const server = require('http').Server(app);
 const port = process.env.PORT || 9000;
 
 // middlewares
+app.use(cors());
 app.use(bodyParser.json());
 
 // default response
@@ -24,6 +27,7 @@ app.get('/', (req, res) => {
 
 // routes
 app.use('/v1/products', productsV1Router);
+app.use('/v1/auth', authV1Router);
 
 
 // error handlers

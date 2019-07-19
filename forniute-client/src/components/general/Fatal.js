@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './Fatal.css';
+import './styles/Fatal.css';
 const Fatal = props => {
   return (
     <div id="fatal-error-container">
