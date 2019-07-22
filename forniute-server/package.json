@@ -4,7 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+
+    "start:dev": "npm run defaults:data && node ./node_modules/nodemon/bin/nodemon.js index.js",
+    "start:dev2": "node ./scripts/mysql/seed-users.js && node ./node_modules/nodemon/bin/nodemon.js index.js",
+
+    "defaults:data": "npm run defaults:users && npm run defaults:products && npm run defaults:carts",
+    "defaults:users": "node ./scripts/mysql/seed-users.js",
+    "defaults:products": "node ./scripts/mysql/seed-products.js",
+    "defaults:carts": "node ./scripts/mysql/seed-carts.js"
   },
   "repository": {
     "type": "git",
@@ -27,6 +35,7 @@
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^3.2.7",
     "mysql": "^2.17.1",
+    "nodemon": "^1.19.1",
     "passport": "^0.4.0",
     "passport-http": "^0.3.0",
     "passport-jwt": "^4.0.0"

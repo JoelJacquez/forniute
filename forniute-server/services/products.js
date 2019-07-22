@@ -1,17 +1,13 @@
 const productMocks = require('../utils/mocks/products');
-const MongoLib = require('../lib/mongo');
 const MysqlLib = require('../lib/mysql');
 class ProductsService {
   constructor() {
     this.collection = 'products';
-    this.mongoDB = new MongoLib();
     this.mysqlDB = new MysqlLib();
-    // this.mysqlDB.open();
   }
 
   async getProducts({ tags }) {
     const query = tags && { tags: { $in: tags } };
-    // const products = await this.mongoDB.getAll(this.collection, query);
     const products = await this.mysqlDB.query('select * from products');
     return products || [];
   }
