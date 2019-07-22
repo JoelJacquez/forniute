@@ -55,14 +55,14 @@ router.delete(
 
     try {
       const result = await cartService.deleteItem({ userId, itemId });
-      if(result.affectedRows >0 ){
+      if (result.affectedRows > 0) {
         res.status(200).json({
           message: 'item deleted'
         });
       } else {
-          res.status(404).json({
-            message: 'item not found'
-          });
+        res.status(404).json({
+          message: 'item not found'
+        });
       }
     } catch (err) {
       next(err);
@@ -70,62 +70,28 @@ router.delete(
   }
 );
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-router.post(
-  '/',
-  passport.authenticate('jwt', { session: false }),
-  async (req, res, next) => {
-    const { body: product } = req;
-    try {
-      const productCreated = await productsService.createProduct({ product });
-
-      res.status(201).json({
-        data: productCreated,
-        message: 'product created'
-      });
-    } catch (err) {
-      next(err);
-    }
-  }
-);
-
 router.put(
-  '/:productId',
+  '/item/:itemId/subtract',
   passport.authenticate('jwt', { session: false }),
   async (req, res, next) => {
-    const { productId } = req.params;
-    const { body: product } = req;
+    const userId = req.user.id;
+    const { itemId } = req.params;
 
     try {
-      const updatedProduct = await productsService.updateProduct({
-        productId,
-        product
-      });
-
-      res.status(200).json({
-        data: updatedProduct,
-        message: 'products updated'
-      });
+      const result = await cartService.subtractQuantityItem({ userId, itemId });
+      if (result.affectedRows > 0) {
+        res.status(200).json({
+          message: 'item updated'
+        });
+      } else {
+        res.status(404).json({
+          message: 'item not found'
+        });
+      }
     } catch (err) {
       next(err);
     }
   }
 );
-
-
 
 module.exports = router;

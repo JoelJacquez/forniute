@@ -32,12 +32,12 @@ class CartService {
       'select * from cartItems where productId=? and cartId=(select id from carts where owner = ?) limit 1;';
     const [existingItem] = await this.mysqlDB.query(sql, [productId, userId]);
     console.log('existingItem ', existingItem);
-    
+
     if (existingItem) {
       sql = 'update cartItems set quantity= quantity+1 where id = ?';
       const resultUpdate = await this.mysqlDB.query(sql, [existingItem.id]);
       console.log('result update ', resultUpdate);
-      
+
       return existingItem.id;
     } else {
       sql =
@@ -47,10 +47,35 @@ class CartService {
     }
   }
 
-  async deleteItem ({userId, itemId}){
-    const sql = 'DELETE FROM cartItems where  cartId = (select id from carts where owner = ? limit 1) and id = ?';
+  async deleteItem({ userId, itemId }) {
+    const sql =
+      'delete from cartItems where  cartId = (select id from carts where owner = ? limit 1) and id = ?';
     const result = await this.mysqlDB.query(sql, [userId, itemId]);
     return result;
+  }
+
+  async subtractQuantityItem({ userId, itemId }) {
+    const sqlConsultItem =
+      'select quantity from cartItems where cartId = (select id from carts where owner = ?) and id = ? limit 1';
+    const [resultConsultItem] = await this.mysqlDB.query(sqlConsultItem, [
+      userId,
+      itemId
+    ]);
+
+    if (resultConsultItem) {
+      if (resultConsultItem.quantity > 1) {
+        const sqlUpdate =
+          'update cartItems set quantity = quantity - 1 where id = ?';
+        const resultUpdate = await this.mysqlDB.query(sqlUpdate, [itemId]);
+        return resultUpdate;
+      } else {
+        const sqlDelete = 'delete from cartItems where id = ?';
+        const resultDelete = await this.mysqlDB.query(sqlDelete, [itemId]);
+        return resultDelete;
+      }
+    } else {
+      return { affectedRows: 0 };
+    }
   }
 }
 

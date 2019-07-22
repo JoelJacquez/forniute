@@ -82,11 +82,11 @@ export const addQuantity = id => async (dispatch, getState) => {
   });
 };
 
-export const subQuantity = id => (dispatch, getState) => {
+export const subQuantity = id => async (dispatch, getState) => {
   let { cartItems, total } = getState().cartReducer;
 
   let cartItem = cartItems.find(item => item.id === id);
-
+  const result = await axios.put(`${config.urlAPI}/cart/item/${cartItem.id}/subtract`);
   if (cartItem.quantity === 1) {
     let newItems = cartItems.filter(item => item.id !== id);
     let newTotal = total - cartItem.price;
