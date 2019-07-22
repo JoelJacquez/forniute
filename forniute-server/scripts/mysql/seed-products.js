@@ -1,6 +1,6 @@
 const chalk = require('chalk');
 const MysqlLib = require('../../lib/mysql');
-const productsMocks = require('../../utils/mocks/products')
+const productsMocks = require('../../utils/mocks/products');
 
 
 
@@ -25,10 +25,10 @@ async function createProduct(mysqlDB, item) {
 async function seedProducts() {
   try {
     const mysqlDB = new MysqlLib();
-    mysqlDB.open();
+
     if (await hasProducts(mysqlDB)) {
       console.log(chalk.yellow('Products already exists'));
-      return process.exit(1);
+      return process.exit(0);
     }
 
     for (let i = 0; i < productsMocks.length; i++) {
