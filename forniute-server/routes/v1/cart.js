@@ -94,4 +94,20 @@ router.put(
   }
 );
 
+router.post(
+  '/checkout',
+  passport.authenticate('jwt', { session: false }),
+  async (req, res, next) => {
+    const userId = req.user.id;
+    const result = await cartService.checkout({ userId });
+    try {
+      res.status(200).json({
+        message: 'checkout'
+      });
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
 module.exports = router;

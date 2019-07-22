@@ -3,7 +3,8 @@ import {
   CART_GET_CART,
   CART_ADD_QUANTITY,
   CART_SUB_QUANTITY,
-  CART_REMOVE_ITEM
+  CART_REMOVE_ITEM,
+  CART_CHECKOUT
 } from '../types/cartTypes';
 
 import { IS_LOADING, HAVE_ERROR } from '../types/generalTypes';
@@ -49,6 +50,14 @@ export default (state = INITIAL_STATE, action) => {
       };
 
     case CART_SUB_QUANTITY:
+      return {
+        ...state,
+        cartItems: action.cartItems,
+        total: action.total,
+        isLoading: false
+      };
+
+    case CART_CHECKOUT:
       return {
         ...state,
         cartItems: action.cartItems,

@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import * as cartActions from '../../../actions/cartActions';
-import ProductItem from '../productItem/ProductItem';
-import Spinner from '../../general/Spinner';
-import Fatal from '../../general/Fatal';
+import * as cartActions from '../../actions/cartActions';
+import ProductItem from './ProductItem';
+import Spinner from '../general/Spinner';
+import Fatal from '../general/Fatal';
 
 const ProductList = (props) => {
   const { products } = props.productsReducer;

@@ -57,3 +57,15 @@ button.remove-item-btn:hover {
   color: #ff0000;
   text-decoration: underline;
 }
+button.checkout-btn {
+  background: #7a00ff;
+  border: none;
+  box-shadow: 2px 2px 3px #3a3a3a;
+  color: white;
+  cursor: pointer;
+  font-size: 1.2em;
+  margin-top: 30px;
+  padding: 10px;
+  transition: 0.5s all;
+  width: 100%;
+}

@@ -1,5 +1,5 @@
 import React from 'react';
-import './ProductItem.css';
+import './styles/ProductItem.css';
 const ProductItem = props => {
   const { product, handleClick } = props;
   return (

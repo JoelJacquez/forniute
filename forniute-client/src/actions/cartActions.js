@@ -4,7 +4,8 @@ import {
   CART_GET_CART,
   CART_ADD_ITEM,
   CART_ADD_QUANTITY,
-  CART_REMOVE_ITEM
+  CART_REMOVE_ITEM,
+  CART_CHECKOUT
 } from '../types/cartTypes';
 import { IS_LOADING, HAVE_ERROR } from '../types/generalTypes';
 import { history } from '../components/general/History';
@@ -86,7 +87,7 @@ export const subQuantity = id => async (dispatch, getState) => {
   let { cartItems, total } = getState().cartReducer;
 
   let cartItem = cartItems.find(item => item.id === id);
-  const result = await axios.put(`${config.urlAPI}/cart/item/${cartItem.id}/subtract`);
+  await axios.put(`${config.urlAPI}/cart/item/${cartItem.id}/subtract`);
   if (cartItem.quantity === 1) {
     let newItems = cartItems.filter(item => item.id !== id);
     let newTotal = total - cartItem.price;
@@ -119,6 +120,21 @@ export const removeItem = id => async (dispatch, getState) => {
     type: CART_REMOVE_ITEM,
     cartItems: newItems,
     total: newTotal <= 0 ? 0 : newTotal
+  });
+};
+
+export const checkout = id => async (dispatch, getState) => {
+
+  let newItems = [];
+
+  await axios.post(`${config.urlAPI}/cart/checkout`);
+  
+  let newTotal = 0;
+  
+  dispatch({
+    type: CART_CHECKOUT,
+    cartItems: newItems,
+    total: newTotal
   });
 };
 

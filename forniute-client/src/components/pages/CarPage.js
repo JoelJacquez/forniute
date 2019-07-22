@@ -32,6 +32,10 @@ class CarPage extends Component {
     return cartItemsRender;
   }
 
+  handleCheckout() {
+    this.props.checkout();
+  }
+
   componentDidMount() {
     if (!this.props.id) {
       this.props.getCart();
@@ -50,6 +54,7 @@ class CarPage extends Component {
               ${this.props.cartReducer.total.toFixed(2)}{' '}
             </span>
           </div>
+          <button className="checkout-btn" onClick={() => {this.handleCheckout()}}>CHECKOUT</button>
         </div>
       </div>
     );

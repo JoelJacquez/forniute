@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import * as productsActions from '../../actions/productsActions';
-import ProductList from './productList/ProductList';
-import './Products.css';
+import ProductList from './ProductList';
+import './styles/Products.css';
 class Products extends Component {
 
   

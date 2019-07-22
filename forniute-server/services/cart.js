@@ -77,6 +77,14 @@ class CartService {
       return { affectedRows: 0 };
     }
   }
+  
+  async checkout({ userId }) {
+    const sql =
+      'delete from cartItems where  cartId = (select id from carts where owner = ? limit 1)';
+    const result = await this.mysqlDB.query(sql, [userId]);
+    return result;
+  }
+
 }
 
 module.exports = CartService;
