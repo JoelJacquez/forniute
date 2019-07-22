@@ -106,14 +106,15 @@ export const subQuantity = id => (dispatch, getState) => {
   }
 };
 
-export const removeItem = id => (dispatch, getState) => {
+export const removeItem = id => async (dispatch, getState) => {
   let { total, cartItems } = getState().cartReducer;
   let itemToRemove = cartItems.find(item => item.id === id);
   let newItems = cartItems.filter(item => item.id !== id);
 
-  //calculating the total
+  await axios.delete(`${config.urlAPI}/cart/item/${itemToRemove.id}`);
+  
   let newTotal = total - itemToRemove.price * itemToRemove.quantity;
-  console.log(itemToRemove);
+  
   dispatch({
     type: CART_REMOVE_ITEM,
     cartItems: newItems,

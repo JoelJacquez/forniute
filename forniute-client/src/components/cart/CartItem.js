@@ -47,11 +47,12 @@ class CartItem extends Component {
             </button>
           </p>
           <button
+            className="remove-item-btn"
             onClick={() => {
               this.handleClickRemoveItem(item.id);
             }}
           >
-            remover
+            Remover
           </button>
         </div>
       </div>

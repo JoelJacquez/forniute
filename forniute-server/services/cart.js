@@ -28,8 +28,6 @@ class CartService {
   }
 
   async addItem({ userId, productId }) {
-    // const products = await this.mongoDB.getAll(this.collection, query);
-    // TODO valid if exist item with the same productId if exist sum quantity else create
     let sql =
       'select * from cartItems where productId=? and cartId=(select id from carts where owner = ?) limit 1;';
     const [existingItem] = await this.mysqlDB.query(sql, [productId, userId]);
@@ -45,11 +43,14 @@ class CartService {
       sql =
         'insert into cartItems (cartId, productId, quantity ) values ((select id from carts where owner = ? limit 1), ?, 1);';
       let result = await this.mysqlDB.query(sql, [userId, productId]);
-      console.log('====================================');
-      console.log('add product result ', result);
-      console.log('====================================');
       return result.insertId;
     }
+  }
+
+  async deleteItem ({userId, itemId}){
+    const sql = 'DELETE FROM cartItems where  cartId = (select id from carts where owner = ? limit 1) and id = ?';
+    const result = await this.mysqlDB.query(sql, [userId, itemId]);
+    return result;
   }
 }
 

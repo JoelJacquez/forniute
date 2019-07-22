@@ -45,6 +45,46 @@ router.post(
     }
   }
 );
+
+router.delete(
+  '/item/:itemId',
+  passport.authenticate('jwt', { session: false }),
+  async (req, res, next) => {
+    const { itemId } = req.params;
+    const userId = req.user.id;
+
+    try {
+      const result = await cartService.deleteItem({ userId, itemId });
+      if(result.affectedRows >0 ){
+        res.status(200).json({
+          message: 'item deleted'
+        });
+      } else {
+          res.status(404).json({
+            message: 'item not found'
+          });
+      }
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 router.post(
   '/',
   passport.authenticate('jwt', { session: false }),
@@ -86,22 +126,6 @@ router.put(
   }
 );
 
-router.delete(
-  '/:productId',
-  passport.authenticate('jwt', { session: false }),
-  async (req, res, next) => {
-    const { productId } = req.params;
-    try {
-      const product = await productsService.deleteProduct({ productId });
 
-      res.status(200).json({
-        data: product,
-        message: 'product deleted'
-      });
-    } catch (err) {
-      next(err);
-    }
-  }
-);
 
 module.exports = router;
