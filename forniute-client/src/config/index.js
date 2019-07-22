@@ -1,4 +1,4 @@
 export default {
-  urlAPI: 'http://localhost:9000/v1',
+  urlAPI: 'http://localhost/api/v1',
   tokenName:'forniute-token'
 }
